@@ -54,3 +54,5 @@ function highlightAds() {
 }
 
 window.onload = highlightAds;
+
+console.log('Highlight Google Sponsored Ads extension has loaded.');

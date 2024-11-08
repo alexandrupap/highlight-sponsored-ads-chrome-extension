@@ -2,9 +2,7 @@
     "manifest_version": 3,
     "name": "Highlight Google Sponsored Ads on Search Results page",
     "version": "1.0",
-    "description": "A simple chrome extension that highlights sponsored ads on Google search results page. Makes them ugly and easy to spot.",
-    "permissions": ["activeTab"],
-    "host_permissions": ["*://www.google.com/*"],
+    "description": "A simple chrome extension that highlights sponsored ads on Google search results page. It makes them ugly and easy to spot.",
     "content_scripts": [
         {
             "matches": ["*://www.google.com/*"],
