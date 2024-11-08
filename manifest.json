@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Highlight Google Sponsored Ads on Search Results page",
+    "version": "1.0",
+    "description": "A simple chrome extension that highlights sponsored ads on Google search results page.",
+    "permissions": ["activeTab"],
+    "host_permissions": ["*://www.google.com/*"],
+    "content_scripts": [
+        {
+            "matches": ["*://www.google.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+}
