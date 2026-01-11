@@ -5,11 +5,12 @@ function initStyles(textColor = '#000000', bgColor = '#FFC800', opacity = 25) {
     style.textContent = `
         body .highlight-ads {
             background-color: ${bgColor} !important;
+            color: ${textColor} !important;
             padding: 0.5rem !important;
             border-radius: 0.3rem !important;
             border: 1px solid !important;
             opacity: ${opacityDecimal} !important;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             transition: opacity 300ms ease !important;
         }
         body .highlight-ads:hover {
@@ -25,25 +26,6 @@ function initStyles(textColor = '#000000', bgColor = '#FFC800', opacity = 25) {
 }
 
 function highlightAds() {
-    const sponsoredTranslations = [
-        { language: "English", word: "sponsored" },
-        { language: "Spanish", word: "patrocinado" },
-        { language: "French", word: "sponsorisé" },
-        { language: "German", word: "gesponsert" },
-        { language: "Italian", word: "sponsorizzato" },
-        { language: "Portuguese", word: "patrocinado" },
-        { language: "Dutch", word: "gesponsord" },
-        { language: "Russian", word: "спонсировано" },
-        { language: "Chinese", word: "赞助" },
-        { language: "Japanese", word: "スポンサー" },
-        { language: "Korean", word: "스폰서된" },
-        { language: "Arabic", word: "برعاية" },
-        { language: "Hindi", word: "प्रायोजित" },
-        { language: "Turkish", word: "sponsorlu" },
-        { language: "Polish", word: "sponsorowany" },
-        { language: "Romanian", word: "sponsorizat" },
-    ];
-
     // Load settings and apply highlighting
     chrome.storage.sync.get([
         'textColorLight', 'bgColorLight', 'opacityLight',
@@ -65,15 +47,21 @@ function highlightAds() {
         
         initStyles(textColor, bgColor, opacity);
 
-        const adElements = document.querySelectorAll('#main span, #main div, #main a');
+        const tvcap = document.getElementById('tvcap');
+        const atvcap = document.querySelector('[data-st-tgt="atvcap"]');
+        const bottomads = document.getElementById('bottomads');
 
-        adElements.forEach((element) => {
-            const textContent = element.textContent.toLowerCase();
-
-            if (sponsoredTranslations.some((translation) => textContent.includes(translation.word)) && element.children.length === 0) {
-                element.parentNode.parentNode.parentNode.parentNode.classList.add('highlight-ads');
+        setTimeout(() => {
+            if (tvcap && document.querySelector('#tvcap > *').clientHeight > 1) {
+                tvcap?.classList.add('highlight-ads');
             }
-        });
+            if (atvcap && document.querySelector('[data-st-tgt="atvcap"] > *').clientHeight > 1) {
+                atvcap?.classList.add('highlight-ads');
+            }
+            if (bottomads && document.querySelector('#bottomads > *').clientHeight > 1) {
+                bottomads?.classList.add('highlight-ads');
+            }
+        }, 1);
     });
 }
 
