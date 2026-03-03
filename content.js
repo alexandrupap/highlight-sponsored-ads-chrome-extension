@@ -25,6 +25,16 @@ function initStyles(textColor = '#000000', bgColor = '#FFC800', opacity = 25) {
 
 }
 
+function hasParentWithClass(element, className) {
+    if (!element?.parentElement) return false;
+    let el = element.parentElement;
+    while (el) {
+        if (el.classList?.contains(className)) return true;
+        el = el.parentElement;
+    }
+    return false;
+}
+
 function highlightAds() {
     // Load settings and apply highlighting
     chrome.storage.sync.get([
@@ -47,19 +57,47 @@ function highlightAds() {
         
         initStyles(textColor, bgColor, opacity);
 
+        // selector for the top ads
         const tvcap = document.getElementById('tvcap');
+
+        // selector for the products carousel at the top of the page
         const atvcap = document.querySelector('[data-st-tgt="atvcap"]');
+
+        // selector for the bottom ads
         const bottomads = document.getElementById('bottomads');
 
+        // selector for middle and top and sometimes even bottom ads..
+        const adsWrapper = document.querySelectorAll('[jscontroller="tY2w9d"][class="vbIt3d"]');
+
+        const complementaryAds = document.querySelectorAll('.commercial-unit-desktop-rhs');
+
         setTimeout(() => {
-            if (tvcap && document.querySelector('#tvcap > *').clientHeight > 1) {
-                tvcap?.classList.add('highlight-ads');
-            }
             if (atvcap && document.querySelector('[data-st-tgt="atvcap"] > *').clientHeight > 1) {
                 atvcap?.classList.add('highlight-ads');
             }
+            if (tvcap && document.querySelector('#tvcap > *').clientHeight > 1) {
+                tvcap?.classList.add('highlight-ads');
+            }
             if (bottomads && document.querySelector('#bottomads > *').clientHeight > 1) {
                 bottomads?.classList.add('highlight-ads');
+            }
+            if (adsWrapper && adsWrapper.length > 0) {
+                adsWrapper.forEach(wrapper => {
+                    const parent = wrapper.parentElement;
+                    // prevent adding highlight-ads class to the parent if it already has it - it will look ugly.. double bordered..
+                    if (parent && !hasParentWithClass(parent, 'highlight-ads')) {
+                        parent.classList.add('highlight-ads');
+                    }
+                });
+            }
+            if (complementaryAds && complementaryAds.length > 0) {
+                complementaryAds.forEach(adsUnit => {
+                    const parent = adsUnit.parentElement;
+                    // prevent adding highlight-ads class to the parent if it already has it - it will look ugly.. double bordered..
+                    if (parent && !hasParentWithClass(parent, 'highlight-ads')) {
+                        adsUnit.classList.add('highlight-ads');
+                    }
+                });
             }
         }, 1);
     });
