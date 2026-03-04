@@ -1,590 +1,863 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sponsored Ads Highlighter - Settings</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-        
-        .settings-section {
-            margin-bottom: 30px;
-        }
-        
-        .settings-section h2 {
-            color: #444;
-            font-size: 18px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-        }
-        
-        .setting-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 15px;
-        }
-        
-        .setting-group label {
-            font-weight: 500;
-            color: #555;
-            min-width: 150px;
-        }
-        
-        .color-input-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        input[type="color"] {
-            width: 60px;
-            height: 40px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        input[type="text"] {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 14px;
-            width: 100px;
-        }
-        
-        input[type="range"] {
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            width: 200px;
-            height: 8px;
-            border-radius: 4px;
-            background: linear-gradient(to right, 
-                #e0e0e0 0%, 
-                #e0e0e0 25%, 
-                #4285f4 25%, 
-                #4285f4 100%);
-            outline: none;
-        }
-        
-        input[type="range"]::-webkit-slider-track {
-            height: 8px;
-            border-radius: 4px;
-            background: transparent;
-        }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #4285f4;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        input[type="range"]::-moz-range-track {
-            height: 8px;
-            border-radius: 4px;
-            background: transparent;
-        }
-        
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #4285f4;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            border: none;
-        }
-        
-        input[type="range"]::-ms-track {
-            height: 8px;
-            border-radius: 4px;
-            background: transparent;
-            border-color: transparent;
-            color: transparent;
-        }
-        
-        input[type="range"]::-ms-fill-lower {
-            background: #4285f4;
-            border-radius: 4px;
-        }
-        
-        input[type="range"]::-ms-fill-upper {
-            background: #e0e0e0;
-            border-radius: 4px;
-        }
-        
-        input[type="range"]::-ms-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #4285f4;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .slider-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #888;
-            margin-top: 2px;
-            width: 200px;
-        }
-        
-        .slider-labels .min-label {
-            color: #999;
-            font-weight: 600;
-        }
-        
-        #opacityValue {
-            min-width: 45px;
-            display: inline-block;
-            font-weight: 500;
-            color: #555;
-        }
-        
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 6px;
-        }
-        
-        .theme-toggle label {
-            font-weight: 600;
-            color: #333;
-            min-width: auto;
-        }
-        
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-        
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 30px;
-        }
-        
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .slider {
-            background-color: #4285f4;
-        }
-        
-        input:checked + .slider:before {
-            transform: translateX(30px);
-        }
-        
-        .theme-label {
-            font-weight: 500;
-            color: #666;
-        }
-        
-        .theme-section {
-            margin-bottom: 25px;
-        }
-        
-        .theme-section.hidden {
-            display: none;
-        }
-        
-        .theme-section h3 {
-            color: #555;
-            font-size: 15px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .preview-section {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .preview-section h3 {
-            color: #444;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        
-        /* Preview Styles */
-        .preview-header {
-            background: #FFC800;
-            padding: 15px 20px;
-            border-radius: 6px 6px 0 0;
-        }
-        
-        .preview-header h2 {
-            color: #c41e3a;
-            font-size: 16px;
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
-        
-        .preview-ad {
-            background: #FFC800;
-            padding: 20px;
-            border-radius: 0 0 6px 6px;
-        }
-        
-        .preview-site {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        
-        .preview-icon {
-            width: 28px;
-            height: 28px;
-            background: #c41e3a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        
-        .preview-site-info {
-            flex: 1;
-        }
-        
-        .preview-site-name {
-            color: #c41e3a;
-            font-weight: 500;
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-        
-        .preview-site-url {
-            color: #c41e3a;
-            font-size: 12px;
-        }
-        
-        .preview-three-dots {
-            color: #c41e3a;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-        
-        .preview-title {
-            color: #c41e3a;
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-        
-        .preview-description {
-            color: #c41e3a;
-            font-size: 14px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .preview-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .preview-link-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-        
-        .preview-link-title {
-            color: #c41e3a;
-            font-weight: 500;
-            font-size: 14px;
-            flex: 1;
-        }
-        
-        .preview-link-desc {
-            color: #c41e3a;
-            font-size: 13px;
-            flex: 2;
-        }
-        
-        .save-button {
-            background: #4285f4;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .save-button:hover {
-            background: #357ae8;
-        }
-        
-        .reset-button {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-left: 10px;
-        }
-        
-        .reset-button:hover {
-            background: #c82333;
-        }
-        
-        .save-message {
-            display: inline-block;
-            margin-left: 15px;
-            color: #0f9d58;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .save-message.show {
-            opacity: 1;
-        }
-        
-        .button-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      input[type="color"]:read-only,
+      input[type="text"]:read-only {
+        background-color: #f0f0f0;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
+          sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 14px;
+      }
+
+      .settings-section {
+        margin-bottom: 30px;
+      }
+
+      .settings-section h2 {
+        color: #444;
+        font-size: 18px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+      }
+
+      .setting-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 15px;
+      }
+
+      .setting-group label {
+        font-weight: 500;
+        color: #555;
+        min-width: 150px;
+      }
+
+      .color-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      input[type="color"] {
+        width: 60px;
+        height: 40px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="text"] {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 14px;
+        width: 100px;
+      }
+
+      input[type="range"] {
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        width: 200px;
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(
+          to right,
+          #e0e0e0 0%,
+          #e0e0e0 25%,
+          #4285f4 25%,
+          #4285f4 100%
+        );
+        outline: none;
+      }
+
+      input[type="range"]::-webkit-slider-track {
+        height: 8px;
+        border-radius: 4px;
+        background: transparent;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4285f4;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 8px;
+        border-radius: 4px;
+        background: transparent;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4285f4;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        border: none;
+      }
+
+      input[type="range"]::-ms-track {
+        height: 8px;
+        border-radius: 4px;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
+
+      input[type="range"]::-ms-fill-lower {
+        background: #4285f4;
+        border-radius: 4px;
+      }
+
+      input[type="range"]::-ms-fill-upper {
+        background: #e0e0e0;
+        border-radius: 4px;
+      }
+
+      input[type="range"]::-ms-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4285f4;
+        cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+        width: 200px;
+      }
+
+      .slider-labels .min-label {
+        color: #999;
+        font-weight: 600;
+      }
+
+      #opacityValue {
+        min-width: 45px;
+        display: inline-block;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        padding: 15px;
+        background: #f0f0f0;
+        border-radius: 6px;
+      }
+
+      .theme-toggle label {
+        font-weight: 600;
+        color: #333;
+        min-width: auto;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 30px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #4285f4;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(30px);
+      }
+
+      .theme-label {
+        font-weight: 500;
+        color: #666;
+      }
+
+      .theme-section {
+        margin-bottom: 25px;
+      }
+
+      .theme-section.hidden {
+        display: none;
+      }
+
+      .theme-section h3 {
+        color: #555;
+        font-size: 15px;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .preview-section {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 6px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .preview-section h3 {
+        color: #444;
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+
+      /* Preview: driven by CSS variables set by options.js */
+      .preview-wrapper {
+        --preview-bg: transparent;
+        --preview-opacity: 1;
+        --preview-text: #333;
+        --preview-border: transparent;
+      }
+
+      .preview-wrapper.preview-show-bg {
+        background-color: var(--preview-bg);
+        opacity: var(--preview-opacity);
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        transition: opacity 300ms ease;
+      }
+
+      .preview-wrapper.preview-show-bg:hover {
+        opacity: 1;
+      }
+
+      .preview-wrapper.preview-show-bg .preview-header {
+        background: transparent;
+      }
+
+      .preview-wrapper.preview-show-bg .preview-header,
+      .preview-wrapper.preview-show-bg .preview-header *,
+      .preview-wrapper.preview-show-bg .preview-ad,
+      .preview-wrapper.preview-show-bg .preview-ad * {
+        color: var(--preview-text);
+      }
+
+      .preview-wrapper .preview-header {
+        padding: 15px 5px;
+        border-radius: 6px 6px 0 0;
+      }
+
+      .preview-wrapper .preview-header h2 {
+        font-size: 16px;
+        margin: 0;
+        border: none;
+        padding: 0;
+
+        font-family:
+          Google Sans,
+          Arial,
+          sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 26px;
+      }
+
+      .preview-wrapper {
+        border-radius: 6px;
+        padding: 0;
+      }
+
+      .preview-wrapper .preview-ad {
+        padding: 20px;
+        border: 3px solid transparent;
+        border-radius: 0.3rem;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+      }
+
+      .preview-wrapper.preview-show-border .preview-ad {
+        border-color: var(--preview-border);
+      }
+
+      .preview-site {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .preview-icon {
+        width: 28px;
+        height: 28px;
+        background: #c41e3a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .preview-site-info {
+        flex: 1;
+      }
+
+      .preview-site-name {
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+
+      .preview-site-url {
+        color: #333;
+        font-size: 12px;
+      }
+
+      .preview-three-dots {
+        color: #333;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0 5px;
+      }
+
+      .preview-title {
+        color: #333;
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+
+      .preview-description {
+        color: #333;
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .preview-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .preview-link-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .preview-link-title {
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+        flex: 1;
+      }
+
+      .preview-link-desc {
+        color: #333;
+        font-size: 13px;
+        flex: 2;
+      }
+
+      .save-button {
+        background: #4285f4;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .save-button:hover {
+        background: #357ae8;
+      }
+
+      .reset-button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-left: 10px;
+      }
+
+      .reset-button:hover {
+        background: #c82333;
+      }
+
+      .save-message {
+        display: inline-block;
+        margin-left: 15px;
+        color: #0f9d58;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .save-message.show {
+        opacity: 1;
+      }
+
+      .button-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 20px;
+      }
+
+      .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 400;
+        min-width: auto;
+        cursor: pointer;
+      }
+
+      .radio-group input[type="radio"] {
+        cursor: pointer;
+        accent-color: #4285f4;
+      }
+
+      .border-color-group.hidden {
+        display: none;
+      }
+
+      fieldset.radio-fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      fieldset.radio-fieldset legend {
+        font-weight: 500;
+        color: #555;
+        margin-bottom: 8px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Sponsored Ads Highlighter - Settings</h1>
-        <p class="subtitle">Customize how sponsored ads are highlighted on Google search results</p>
-        
-        <div class="settings-section">
-            <h2>Theme Settings</h2>
-            
-            <div class="theme-toggle">
-                <label>Theme:</label>
-                <span class="theme-label" id="lightLabel">Light</span>
-                <label class="switch">
-                    <input type="checkbox" id="themeToggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="theme-label" id="darkLabel">Dark</span>
-            </div>
-            
-            <div class="theme-section" id="lightThemeSection">
-                <h3>🌞 Light Theme Colors</h3>
-                
-                <div class="setting-group">
-                    <label for="textColorLight">Text Color:</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="textColorLight" value="#000000">
-                        <input type="text" id="textColorLightHex" value="#000000">
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="bgColorLight">Background Color:</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="bgColorLight" value="#FFC800">
-                        <input type="text" id="bgColorLightHex" value="#FFC800">
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="opacityLight">Opacity:</label>
-                    <div class="color-input-wrapper">
-                        <div>
-                            <div style="text-align: center; margin-bottom: 5px;">
-                                <span id="opacityLightValue" style="font-weight: 600; color: #4285f4; font-size: 14px;">25%</span>
-                            </div>
-                            <input type="range" id="opacityLight" min="0" max="100" value="25" style="width: 200px;">
-                            <div class="slider-labels">
-                                <span class="min-label">25%</span>
-                                <span>100%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="theme-section hidden" id="darkThemeSection">
-                <h3>🌙 Dark Theme Colors</h3>
-                
-                <div class="setting-group">
-                    <label for="textColorDark">Text Color:</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="textColorDark" value="#FFC800">
-                        <input type="text" id="textColorDarkHex" value="#FFC800">
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="bgColorDark">Background Color:</label>
-                    <div class="color-input-wrapper">
-                        <input type="color" id="bgColorDark" value="#000000">
-                        <input type="text" id="bgColorDarkHex" value="#000000">
-                    </div>
-                </div>
-                
-                <div class="setting-group">
-                    <label for="opacityDark">Opacity:</label>
-                    <div class="color-input-wrapper">
-                        <div>
-                            <div style="text-align: center; margin-bottom: 5px;">
-                                <span id="opacityDarkValue" style="font-weight: 600; color: #4285f4; font-size: 14px;">25%</span>
-                            </div>
-                            <input type="range" id="opacityDark" min="0" max="100" value="25" style="width: 200px;">
-                            <div class="slider-labels">
-                                <span class="min-label">25%</span>
-                                <span>100%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <h1>Sponsored Ads Highlighter - Settings</h1>
+      <p class="subtitle">
+        Customize how sponsored ads are highlighted on Google search results
+      </p>
+
+      <div class="settings-section">
+        <h2>Theme Settings</h2>
+
+        <div class="theme-toggle">
+          <label>Theme:</label>
+          <span class="theme-label" id="lightLabel">Light</span>
+          <label class="switch">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="theme-label" id="darkLabel">Dark</span>
         </div>
-        
-        <div class="button-section">
-            <button class="save-button" id="saveButton">Save Settings</button>
-            <button class="reset-button" id="resetButton">Reset to Defaults</button>
-            <span class="save-message" id="saveMessage">✓ Settings saved!</span>
-        </div>
-        
-        <div class="settings-section">
-            <h2>Preview</h2>
-            <div class="preview-section">
-                <h3>How sponsored ads will appear:</h3>
-                
-                <div class="preview-header" id="previewHeader">
-                    <h2>Sponsored Results</h2>
-                </div>
-                
-                <div class="preview-ad" id="previewAd">
-                    <div class="preview-site">
-                        <div class="preview-icon">A</div>
-                        <div class="preview-site-info">
-                            <div class="preview-site-name">Acme Corporation</div>
-                            <div class="preview-site-url">https://www.example-store.com</div>
-                        </div>
-                        <div class="preview-three-dots">⋮</div>
-                    </div>
-                    
-                    <div class="preview-title">
-                        Shop the Best Deals on Premium Products Today
-                    </div>
-                    
-                    <div class="preview-description">
-                        Discover amazing offers and discounts. Free shipping on orders over $50.
-                    </div>
-                    
-                    <div class="preview-links">
-                        <div class="preview-link-item">
-                            <div class="preview-link-title">Special Offers</div>
-                            <div class="preview-link-desc">Check out our latest deals and promotions. Save up to 50% today!</div>
-                        </div>
-                        <div class="preview-link-item">
-                            <div class="preview-link-title">New Arrivals</div>
-                            <div class="preview-link-desc">Browse our newest products and collections. Fresh inventory weekly.</div>
-                        </div>
-                        <div class="preview-link-item">
-                            <div class="preview-link-title">Customer Reviews</div>
-                            <div class="preview-link-desc">See what our happy customers are saying. Rated 4.8 out of 5 stars.</div>
-                        </div>
-                        <div class="preview-link-item">
-                            <div class="preview-link-title">Free Returns</div>
-                            <div class="preview-link-desc">Easy returns within 30 days. No questions asked policy.</div>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="theme-section" id="lightThemeSection">
+          <h3>🌞 Light Theme Colors</h3>
+
+          <div class="setting-group">
+            <label for="textColorLight">Text Color:</label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                id="textColorLight"
+                value="#000000"
+                readonly
+              />
+              <input
+                type="text"
+                id="textColorLightHex"
+                value="#000000"
+                readonly
+              />
             </div>
+          </div>
+
+          <div class="setting-group">
+            <label for="bgColorLight">Background Color:</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="bgColorLight" value="#FFC800" readonly />
+              <input
+                type="text"
+                id="bgColorLightHex"
+                value="#FFC800"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label for="opacityLight">Opacity:</label>
+            <div class="color-input-wrapper">
+              <div>
+                <div style="text-align: center; margin-bottom: 5px">
+                  <span
+                    id="opacityLightValue"
+                    style="font-weight: 600; color: #4285f4; font-size: 14px"
+                    >100%</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="opacityLight"
+                  min="0"
+                  max="100"
+                  value="100"
+                  style="width: 200px"
+                />
+                <div class="slider-labels">
+                  <span class="min-label">25%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <fieldset class="radio-fieldset">
+              <legend>Highlight Mode:</legend>
+              <div class="radio-group">
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeLight"
+                    value="background"
+                  />
+                  Ad Container</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeLight"
+                    value="border"
+                  />
+                  Individual Ad</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeLight"
+                    value="both"
+                    checked
+                  />
+                  Both</label
+                >
+              </div>
+            </fieldset>
+          </div>
+
+          <div
+            class="setting-group border-color-group"
+            id="borderColorLightGroup"
+          >
+            <label for="borderColorLight">Ad Border Color:</label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                id="borderColorLight"
+                value="#FF0000"
+                readonly
+              />
+              <input
+                type="text"
+                id="borderColorLightHex"
+                value="#FF0000"
+                readonly
+              />
+            </div>
+          </div>
         </div>
+
+        <div class="theme-section hidden" id="darkThemeSection">
+          <h3>🌙 Dark Theme Colors</h3>
+
+          <div class="setting-group">
+            <label for="textColorDark">Text Color:</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="textColorDark" value="#FFC800" readonly />
+              <input
+                type="text"
+                id="textColorDarkHex"
+                value="#FFC800"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label for="bgColorDark">Background Color:</label>
+            <div class="color-input-wrapper">
+              <input type="color" id="bgColorDark" value="#000000" readonly />
+              <input type="text" id="bgColorDarkHex" value="#000000" readonly />
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <label for="opacityDark">Opacity:</label>
+            <div class="color-input-wrapper">
+              <div>
+                <div style="text-align: center; margin-bottom: 5px">
+                  <span
+                    id="opacityDarkValue"
+                    style="font-weight: 600; color: #4285f4; font-size: 14px"
+                    >100%</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="opacityDark"
+                  min="0"
+                  max="100"
+                  value="100"
+                  style="width: 200px"
+                />
+                <div class="slider-labels">
+                  <span class="min-label">25%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <fieldset class="radio-fieldset">
+              <legend>Highlight Mode:</legend>
+              <div class="radio-group">
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeDark"
+                    value="background"
+                  />
+                  Ad Container</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeDark"
+                    value="border"
+                  />
+                  Individual Ad</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="highlightModeDark"
+                    value="both"
+                    checked
+                  />
+                  Both</label
+                >
+              </div>
+            </fieldset>
+          </div>
+
+          <div
+            class="setting-group border-color-group"
+            id="borderColorDarkGroup"
+          >
+            <label for="borderColorDark">Ad Border Color:</label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                id="borderColorDark"
+                value="#FF0000"
+                readonly
+              />
+              <input
+                type="text"
+                id="borderColorDarkHex"
+                value="#FF0000"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-section">
+        <button class="save-button" id="saveButton">Save Settings</button>
+        <button class="reset-button" id="resetButton">Reset to Defaults</button>
+        <span class="save-message" id="saveMessage">✓ Settings saved!</span>
+      </div>
+
+      <div class="settings-section">
+        <h2>Preview</h2>
+        <div class="preview-section">
+          <h3>How sponsored ads will appear:</h3>
+
+          <div class="preview-wrapper" id="previewWrapper">
+            <div class="preview-header" id="previewHeader">
+              <h2>Sponsored Results</h2>
+            </div>
+
+            <div class="preview-ad" id="previewAd1">
+              <div class="preview-site">
+                <div class="preview-icon">A</div>
+                <div class="preview-site-info">
+                  <div class="preview-site-name">Acme Corporation</div>
+                  <div class="preview-site-url">
+                    https://www.example-store.com
+                  </div>
+                </div>
+                <div class="preview-three-dots">⋮</div>
+              </div>
+
+              <div class="preview-title">
+                Shop the Best Deals on Premium Products Today
+              </div>
+
+              <div class="preview-description">
+                Discover amazing offers and discounts. Free shipping on orders
+                over $50.
+              </div>
+
+              <div class="preview-links">
+                <div class="preview-link-item">
+                  <div class="preview-link-title">Special Offers</div>
+                  <div class="preview-link-desc">Save up to 50% today!</div>
+                </div>
+                <div class="preview-link-item">
+                  <div class="preview-link-title">New Arrivals</div>
+                  <div class="preview-link-desc">Fresh inventory weekly.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preview-ad" id="previewAd2">
+              <div class="preview-site">
+                <div class="preview-icon">B</div>
+                <div class="preview-site-info">
+                  <div class="preview-site-name">Beta Solutions Inc.</div>
+                  <div class="preview-site-url">
+                    https://www.beta-solutions.com
+                  </div>
+                </div>
+                <div class="preview-three-dots">⋮</div>
+              </div>
+
+              <div class="preview-title">
+                Professional Tools for Modern Teams
+              </div>
+
+              <div class="preview-description">
+                Boost your team productivity with our award-winning platform.
+                Try free for 14 days.
+              </div>
+
+              <div class="preview-links">
+                <div class="preview-link-item">
+                  <div class="preview-link-title">Pricing Plans</div>
+                  <div class="preview-link-desc">Starting at $9/month.</div>
+                </div>
+                <div class="preview-link-item">
+                  <div class="preview-link-title">Case Studies</div>
+                  <div class="preview-link-desc">See how teams succeed.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
     <script src="options.js"></script>
-</body>
+  </body>
 </html>
